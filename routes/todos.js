@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-var Todo = require('../models/todo.js');
+var Todo = require('../models/todo');
 
 
 // GET /todos listing. 
