@@ -5,14 +5,17 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var config = require('./config');
+var routerApi = require('./middlewares/auth'); 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var todos = require('./routes/todos');
+var auth = require('./routes/auth');
 
 // load mongoose package
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/todo-api')
+mongoose.connect(config.database)
   .then(() =>  console.log('connection succesful'))
   .catch((err) => console.error(err));
 
@@ -31,8 +34,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/users', users);
-app.use('/todos', todos);
+app.use('/auth', auth);
+app.use('/api', routerApi);
+app.use('/api/users', users);
+app.use('/api/todos', todos);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
