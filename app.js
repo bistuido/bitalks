@@ -6,8 +6,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var config = require('./config');
-var routerApi = require('./middlewares/auth'); 
+var mdl_auth = require('./middlewares/auth'); 
 var routes = require('./routes/index');
+var setup = require('./routes/setup');
 var users = require('./routes/users');
 var todos = require('./routes/todos');
 var auth = require('./routes/auth');
@@ -35,7 +36,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/auth', auth);
-app.use('/api', routerApi);
+app.use('/setup', setup);
+app.use('/api', mdl_auth);
 app.use('/api/users', users);
 app.use('/api/todos', todos);
 

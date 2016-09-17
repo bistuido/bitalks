@@ -10,16 +10,24 @@ router.get('/', function(req, res, next) {
   });
 });
 
-router.get('/setup', function(req, res) {
-  User.create({ 
-    name: 'Nick Cerminara', 
-    password: 'password',
-    admin: true 
-  }, function(err) {
-    if (err) throw err;
+router.get('/:id', function(req, res, next) {
+  User.findById( req.params.id, function(err, user){
+    if(err) return next(err);
+    res.json(user);
+  });
+});
 
-    console.log('User saved successfully');
-    res.json({ success: true });
+router.put('/:id', function(req, res, next) {
+  User.findByIdAndUpdate( req.params.id, req.body, function(err, user){
+    if(err) return next(err);
+    res.json(user);
+  });
+});
+
+router.delete('/:id', function(req, res, next) {
+  User.findByIdAndRemove(req.params.id, function(err, user){
+    if(err) return next(err);
+    res.json(user);
   });
 });
 
