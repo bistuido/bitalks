@@ -1,4 +1,4 @@
 module.exports = {
     'secret': 'ilovescotchyscotch',
-    'database': 'mongodb://localhost/todo-api'
+    'database': 'mongodb://localhost/bitalksdb'
 };
