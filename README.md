@@ -15,9 +15,16 @@
   * Add verify ADMIN middleware for filters
   * Add new API:
     * /setup
+     * GET 
     * /auth/login
+     * POST
     * /auth/register
+     * POST
     * /api/users
+     * GET *ADMIN*
+     * GET :id *ADMIN*
+     * PUT
+     * DELETE *ADMIN*
   * Add **new** features: 
     * LOGIN
     * REGISTER 
