@@ -13,11 +13,11 @@ var users = require('./routes/users');
 var todos = require('./routes/todos');
 
 // load mongoose package
-var mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
-mongoose.connect(config.database)
-  .then(() =>  console.log('connection succesful'))
-  .catch((err) => console.error(err));
+// var mongoose = require('mongoose');
+// mongoose.Promise = global.Promise;
+// mongoose.connect(config.database)
+//   .then(() =>  console.log('connection succesful'))
+//   .catch((err) => console.error(err));
 
 var app = express();
 
@@ -31,10 +31,13 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(__dirname + '/public'));
+app.use('/css',  express.static(__dirname + '/css'));
+app.use('/images',  express.static(__dirname + '/images'));
+app.use('/js',  express.static(__dirname + '/js'));
 app.set('superSecret', config.secret);
 
-app.use('/api/', routes);
+app.use('/', routes);
 app.use('/api/users', users);
 app.use('/api/todos', todos);
 
