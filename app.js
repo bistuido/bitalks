@@ -8,16 +8,20 @@ var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var config = require('./config'); // get our config file
 
 
+var config = require('./config');
+var routerApi = require('./middlewares/auth'); 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var todos = require('./routes/todos');
+var auth = require('./routes/auth');
 
 // load mongoose package
-// var mongoose = require('mongoose');
-// mongoose.Promise = global.Promise;
-// mongoose.connect(config.database)
-//   .then(() =>  console.log('connection succesful'))
-//   .catch((err) => console.error(err));
+var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+mongoose.connect(config.database)
+  .then(() =>  console.log('connection succesful'))
+  .catch((err) => console.error(err));
+
 
 var app = express();
 
@@ -38,6 +42,8 @@ app.use('/js',  express.static(__dirname + '/js'));
 app.set('superSecret', config.secret);
 
 app.use('/', routes);
+app.use('/auth', auth);
+app.use('/api', routerApi);
 app.use('/api/users', users);
 app.use('/api/todos', todos);
 
